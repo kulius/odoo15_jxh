@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_expand_type_tree" model="ir.ui.view">
+        <field name="name">calendar_expand_type_tree</field>
+        <field name="model">calendar.expand.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_expand_type_form" model="ir.ui.view">
+        <field name="name">calendar_expand_type_form</field>
+        <field name="model">calendar.expand.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <group col="4">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="handler_id"/>
+                </group>
+                <notebook>
+                    <page string="行事曆類型待辦明細">
+                        <field name="line_ids">
+                            <tree>
+                                <field name="add_date"/>
+                                <field name="name" width="200px"/>
+                                <field name="attendees1" string="載入執行者1"/>
+                                <field name="attendees2" string="載入執行者2"/>
+                                <field name="out_attendees1" string="載入外部窗口1"/>
+                                <field name="out_attendees2" string="載入外部窗口2"/>
+                                <field name="holiday_adjust" invisible="1"/>
+                                <field name="is_important" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="calendar_expand_type_action" model="ir.actions.act_window">
+        <field name="name">行事曆展開類型</field>
+        <field name="res_model">calendar.expand.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="calendar_expand_type_menu"
+              name="行事曆展開類型"
+              parent="calendar.mail_menu_calendar"
+              sequence="25"
+              action="calendar_expand_type_action"
+    />
+</odoo>

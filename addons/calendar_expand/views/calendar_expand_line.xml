@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_expand_line_form" model="ir.ui.view">
+        <field name="name">calendar_expand_line_form</field>
+        <field name="model">calendar.expand.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="add_date"/>
+                    <field name="name"/>
+                    <field name="detail"/>
+                </group>
+                <group col="4">
+                    <field name="attendees1"/>
+                    <field name="attendees2"/>
+                    <field name="out_attendees1"/>
+                    <field name="out_attendees2"/>
+                    <field name="holiday_adjust" invisible="1"/>
+                    <field name="is_important" invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="calendar_expand_line_tree" model="ir.ui.view">
+        <field name="name">calendar_expand_line_tree</field>
+        <field name="model">calendar.expand.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="add_date"/>
+                <field name="name" width="200px"/>
+                <field name="attendees1" string="載入執行者1"/>
+                <field name="attendees2" string="載入執行者2"/>
+                <field name="out_attendees1" string="載入外部窗口1"/>
+                <field name="out_attendees2" string="載入外部窗口2"/>
+                <field name="holiday_adjust" invisible="1"/>
+                <field name="is_important" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_expand_line_action" model="ir.actions.act_window">
+        <field name="name">行事曆展開明細</field>
+        <field name="res_model">calendar.expand.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="calendar_expand_line_menu"
+           name="行事曆展開明細"
+              parent="calendar.mail_menu_calendar"
+              sequence="31"
+              action="calendar_expand_line_action"
+    />
+</odoo>

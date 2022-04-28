@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_expand_tree" model="ir.ui.view">
+        <field name="name">calendar_expand_tree</field>
+        <field name="model">calendar.expand</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="display_name" string="名稱"/>
+                <field name="start_date"/>
+                <field name="expand_type_id"/>
+                <field name="handler_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_expand_form" model="ir.ui.view">
+        <field name="name">calendar_expand_form</field>
+        <field name="model">calendar.expand</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="expand_to_event" type="object" class="oe_btn btn-primary mr-3" string="展開" />
+                    <button name="revert_expand_event" type="object" class="oe_btn btn-warning" string="還原" />
+                </header>
+                <group>
+                    <field name="name" invisible="1"/>
+                    <field name="start_date"/>
+                    <field name="expand_type_id"/>
+                    <field name="handler_id"/>
+                </group>
+                <group>
+                    <field name="attendees1" widget="many2many_tags"/>
+                    <field name="attendees2" widget="many2many_tags"/>
+                    <field name="out_attendees1"  widget="many2many_tags"/>
+                    <field name="out_attendees2"  widget="many2many_tags"/>
+                </group>
+                <notebook>
+                    <page string="已展開日歷活動">
+                        <field name="calendar_event_ids" readonly="1">
+                            <tree default_order="start_date">
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="stop_date"/>
+                                <field name="partner_ids" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="calendar_expand_tree_action" model="ir.actions.act_window">
+        <field name="name">行事曆展開清單</field>
+        <field name="res_model">calendar.expand</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="calendar_expand_tree_menu"
+              name="行事曆展開清單"
+              parent="calendar.mail_menu_calendar"
+              sequence="30"
+              action="calendar_expand_tree_action"
+              groups="base.group_system"
+    />
+
+    <record id="calendar_expand_popup_form" model="ir.ui.view">
+        <field name="name">calendar_expand_form</field>
+        <field name="model">calendar.expand</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" invisible="1"/>
+                    <field name="start_date"/>
+                    <field name="expand_type_id"/>
+                    <field name="handler_id"/>
+                </group>
+                <group>
+                    <field name="attendees1" widget="many2many_tags"/>
+                    <field name="attendees2" widget="many2many_tags"/>
+                    <field name="out_attendees1"  widget="many2many_tags"/>
+                    <field name="out_attendees2"  widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button name="expand_to_event" string="展開" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button special="cancel" data-hotkey="z" string="取消"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="calendar_expand_popup_action" model="ir.actions.act_window">
+        <field name="name">行事曆展開</field>
+        <field name="res_model">calendar.expand</field>
+        <field name="view_id" ref="calendar_expand_popup_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="calendar_expand_popup_menu"
+              name="行事曆展開"
+              parent="calendar.mail_menu_calendar"
+              sequence="29"
+              action="calendar_expand_popup_action"
+    />
+</odoo>

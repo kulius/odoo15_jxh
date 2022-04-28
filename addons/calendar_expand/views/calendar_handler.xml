@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_handler_tree" model="ir.ui.view">
+        <field name="name">calendar_handler_tree</field>
+        <field name="model">calendar.handler</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_handler_action" model="ir.actions.act_window">
+        <field name="name">處理單位/客戶簡稱</field>
+        <field name="res_model">calendar.handler</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="calendar_handler_menu"
+              name="處理單位/客戶簡稱"
+              parent="calendar.mail_menu_calendar"
+              sequence="27"
+              action="calendar_handler_action"
+    />
+</odoo>
