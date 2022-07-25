@@ -6,6 +6,21 @@
         <field name="priority" eval="16"/>
 		<field name="inherit_id" ref="sale.view_order_form"/>
 		<field name="arch" type="xml">
+			<xpath expr="//div[hasclass('oe_title')]" position="replace">
+				<group>
+					<group>
+						<div class="oe_title">
+							<h1>
+								<field name="name" readonly="1"/>
+							</h1>
+						</div>
+					</group>
+					<group>
+						<field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}"/>
+					</group>
+
+				</group>
+			</xpath>
 			<xpath expr="//group[@name='sale_header']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -30,12 +45,12 @@
 			<xpath expr="//notebook" position="after">
 				<group name="sale_footrer">
 					<group name="partner_footrer_details">
-						<field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}"/>
+<!--						<field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}"/>-->
 						<field name="partner_invoice_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}" options="{&quot;always_reload&quot;: True}"/>
 						<field name="partner_shipping_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'delivery'}" options="{&quot;always_reload&quot;: True}"/>
 						<field name="validity_date" attrs="{'invisible': [('state', 'in', ['sale', 'done'])]}"/>
 						<div class="o_td_label" groups="base.group_no_one" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}">
-							<label for="date_order" string="Quotation Date"/>
+							<label for="date_order" string="日期"/>
 						</div>
 						<field name="date_order" nolabel="1" groups="base.group_no_one" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"/>
 						<div class="o_td_label" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}">
@@ -52,11 +67,11 @@
 						<field name="tax_country_id" invisible="1"/>
 						<field name="payment_term_id" options="{'no_open':True,'no_create': True}"/>
 					</group>
-					<group name="order_footrer_details">
-						<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
-							<field name="tax_totals_json" widget="account-tax-totals-field" nolabel="1" colspan="2"/>
-						</group>
-					</group>
+<!--					<group name="order_footrer_details">-->
+<!--						<group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">-->
+<!--							<field name="tax_totals_json" widget="account-tax-totals-field" nolabel="1" colspan="2"/>-->
+<!--						</group>-->
+<!--					</group>-->
 				</group>
 			</xpath>
 		</field>

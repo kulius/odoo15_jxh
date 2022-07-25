@@ -5,6 +5,16 @@ from odoo import fields, models, api, _
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
+    def _get_default_partner(self):
+        return self.env.user.partner_id.id
+
+    partner_id = fields.Many2one(
+        'res.partner', string='Customer', readonly=True,
+        states={'draft': [('readonly', False)], 'sent': [('readonly', False)]},
+        required=True, change_default=True, index=True, tracking=1,
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+        default = _get_default_partner)
+
     partnerline_ids = fields.One2many(comodel_name="sale.order.partnerline",
                                                  inverse_name="order_id", string="歷史銷售資料", required=False, )
 
